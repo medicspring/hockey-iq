@@ -1,0 +1,743 @@
+{
+ "version": 1,
+ "level": "Peewee C (Minnesota)",
+ "note": "Each question: options[], answer = index of the correct option. diagram (optional): p=[label,x,y,team u|o] in feet (rink 85x200, goal at top), k=puck, g=goalie team, c=caption.",
+ "questions": [
+  {
+   "id": "Q001",
+   "category": "Offense",
+   "text": "F1 has the puck in the corner with a defender (X1) closing in. F3 is wide open in the slot. What is the best play?",
+   "options": [
+    "Shoot from the corner at a tiny angle",
+    "Pass to F3 in the slot",
+    "Skate in circles and wait",
+    "Dump the puck out of the zone"
+   ],
+   "answer": 1,
+   "why": "The slot is the best scoring area, and F3 is open. A pass to open ice beats a shot from a bad angle.",
+   "diagram": {
+    "p": [
+     [
+      "F1",
+      10,
+      24,
+      "u"
+     ],
+     [
+      "X1",
+      16,
+      31,
+      "o"
+     ],
+     [
+      "F2",
+      10,
+      44,
+      "u"
+     ],
+     [
+      "F3",
+      42,
+      36,
+      "u"
+     ],
+     [
+      "D1",
+      24,
+      74,
+      "u"
+     ],
+     [
+      "D2",
+      62,
+      74,
+      "u"
+     ],
+     [
+      "X2",
+      60,
+      26,
+      "o"
+     ]
+    ],
+    "k": [
+     10,
+     24
+    ],
+    "g": "o",
+    "c": "Gold = your team, attacking the net at the top."
+   }
+  },
+  {
+   "id": "Q002",
+   "category": "Offense",
+   "text": "D1 has the puck at the blue line and is about to shoot. F1 is in the high slot. What should F1 do?",
+   "options": [
+    "Get to the front of the net (not in the crease) to screen the goalie and look for a rebound",
+    "Skate back to center ice",
+    "Stand still in the high slot",
+    "Go behind the net and wait"
+   ],
+   "answer": 0,
+   "why": "Screens and rebounds score a lot of goals. Get in front of the goalie’s eyes, but stay out of the crease.",
+   "diagram": {
+    "p": [
+     [
+      "D1",
+      24,
+      74,
+      "u"
+     ],
+     [
+      "D2",
+      62,
+      74,
+      "u"
+     ],
+     [
+      "F1",
+      40,
+      46,
+      "u"
+     ],
+     [
+      "F2",
+      12,
+      28,
+      "u"
+     ],
+     [
+      "F3",
+      62,
+      50,
+      "u"
+     ],
+     [
+      "X1",
+      42,
+      60,
+      "o"
+     ],
+     [
+      "X2",
+      30,
+      36,
+      "o"
+     ]
+    ],
+    "k": [
+     24,
+     74
+    ],
+    "g": "o",
+    "c": "D1 has the puck at the left point."
+   }
+  },
+  {
+   "id": "Q003",
+   "category": "Offense",
+   "text": "You are F1 on a 2-on-1. The only defender (X1) is staying right next to F2 to block the pass. What should F1 do?",
+   "options": [
+    "Pass to F2 anyway",
+    "Stop and wait for help",
+    "Dump the puck into the corner",
+    "Shoot, or drive to the net"
+   ],
+   "answer": 3,
+   "why": "The defender chose to cover F2, so the shot is open. Make the defender pay for it.",
+   "diagram": {
+    "p": [
+     [
+      "F1",
+      34,
+      50,
+      "u"
+     ],
+     [
+      "F2",
+      56,
+      50,
+      "u"
+     ],
+     [
+      "X1",
+      52,
+      44,
+      "o"
+     ]
+    ],
+    "k": [
+     34,
+     50
+    ],
+    "g": "o",
+    "c": "Two attackers against one defender."
+   }
+  },
+  {
+   "id": "Q004",
+   "category": "Offense",
+   "text": "A teammate takes a shot and the goalie makes a save, but the puck pops loose. Where should you be?",
+   "options": [
+    "At center ice",
+    "Heading to the bench",
+    "Skating toward the net, ready for the rebound",
+    "Standing still and watching the shot"
+   ],
+   "answer": 2,
+   "why": "Most rebound goals go to the player who is already moving to the net.",
+   "diagram": null
+  },
+  {
+   "id": "Q005",
+   "category": "Offense",
+   "text": "F1 passes the puck to F2 along the boards. What should F1 do next?",
+   "options": [
+    "Stand and watch the pass",
+    "Skate to open ice to give F2 a passing option",
+    "Skate back to the bench",
+    "Skate to the blue line and stop"
+   ],
+   "answer": 1,
+   "why": "Pass, then move. Moving creates new passing options and keeps the cycle going.",
+   "diagram": {
+    "p": [
+     [
+      "F1",
+      10,
+      36,
+      "u"
+     ],
+     [
+      "F2",
+      10,
+      22,
+      "u"
+     ],
+     [
+      "F3",
+      42,
+      50,
+      "u"
+     ],
+     [
+      "D1",
+      24,
+      74,
+      "u"
+     ],
+     [
+      "D2",
+      62,
+      74,
+      "u"
+     ],
+     [
+      "X1",
+      17,
+      28,
+      "o"
+     ]
+    ],
+    "k": [
+     10,
+     36
+    ],
+    "g": "o",
+    "c": "F1 has the puck and is about to pass up the boards to F2."
+   }
+  },
+  {
+   "id": "Q006",
+   "category": "Offense",
+   "text": "The puck is on the left side of the zone and you are the winger on the far (weak) side. What is your best spot?",
+   "options": [
+    "An open spot near the far post, ready for a pass or rebound",
+    "Next to your bench",
+    "In the corner with the puck carrier",
+    "At center ice"
+   ],
+   "answer": 0,
+   "why": "Weak-side players slide to open ice near the net, where a cross-ice pass or rebound can come.",
+   "diagram": null
+  },
+  {
+   "id": "Q007",
+   "category": "Offense",
+   "text": "F2 is already in the offensive zone. F1 is still in the neutral zone carrying the puck toward the blue line. What happens if F1 crosses the blue line?",
+   "options": [
+    "Nothing, play continues",
+    "Icing",
+    "Automatic goal",
+    "Offside: the whistle blows and play stops"
+   ],
+   "answer": 3,
+   "why": "The puck must cross the blue line before the attackers do. F2 should have waited for the puck or come back onside.",
+   "diagram": {
+    "p": [
+     [
+      "F1",
+      30,
+      84,
+      "u"
+     ],
+     [
+      "F2",
+      54,
+      58,
+      "u"
+     ],
+     [
+      "F3",
+      20,
+      86,
+      "u"
+     ],
+     [
+      "D1",
+      46,
+      88,
+      "u"
+     ],
+     [
+      "X1",
+      50,
+      40,
+      "o"
+     ],
+     [
+      "X2",
+      34,
+      46,
+      "o"
+     ]
+    ],
+    "k": [
+     30,
+     84
+    ],
+    "g": "o",
+    "c": "The blue line is at y = 75 ft. F2 is past it; the puck is not."
+   }
+  },
+  {
+   "id": "Q008",
+   "category": "Defense",
+   "text": "X1 has the puck in the corner and X2 is alone in the slot. D1 is on X1. Who should cover X2 in front of your net?",
+   "options": [
+    "F3, who is up near the blue line",
+    "The goalie",
+    "D2, who is closest to X2",
+    "D1, leaving the puck carrier"
+   ],
+   "answer": 2,
+   "why": "The closest defender covers the slot. D1 handles the puck, D2 handles the front of the net.",
+   "diagram": {
+    "p": [
+     [
+      "D1",
+      20,
+      28,
+      "u"
+     ],
+     [
+      "D2",
+      36,
+      18,
+      "u"
+     ],
+     [
+      "F1",
+      28,
+      48,
+      "u"
+     ],
+     [
+      "F2",
+      58,
+      48,
+      "u"
+     ],
+     [
+      "F3",
+      44,
+      62,
+      "u"
+     ],
+     [
+      "X1",
+      11,
+      22,
+      "o"
+     ],
+     [
+      "X2",
+      44,
+      34,
+      "o"
+     ]
+    ],
+    "k": [
+     11,
+     22
+    ],
+    "g": "u",
+    "c": "You are defending the net at the top."
+   }
+  },
+  {
+   "id": "Q009",
+   "category": "Defense",
+   "text": "X1 is about to shoot from the point. F1 is high on that side. What should F1 do?",
+   "options": [
+    "Turn away so you do not get hit",
+    "Get a stick and body in the shooting lane to block it",
+    "Skate to the bench",
+    "Chase the corner"
+   ],
+   "answer": 1,
+   "why": "Block the lane and the goalie can see the shot. Shot lanes are part of defending.",
+   "diagram": {
+    "p": [
+     [
+      "F1",
+      30,
+      66,
+      "u"
+     ],
+     [
+      "D1",
+      22,
+      36,
+      "u"
+     ],
+     [
+      "D2",
+      40,
+      22,
+      "u"
+     ],
+     [
+      "F2",
+      60,
+      58,
+      "u"
+     ],
+     [
+      "F3",
+      44,
+      56,
+      "u"
+     ],
+     [
+      "X1",
+      24,
+      78,
+      "o"
+     ],
+     [
+      "X2",
+      44,
+      30,
+      "o"
+     ]
+    ],
+    "k": [
+     24,
+     78
+    ],
+    "g": "u",
+    "c": "X1 has the puck at the left point."
+   }
+  },
+  {
+   "id": "Q010",
+   "category": "Defense",
+   "text": "You win the puck in your own zone along the boards. What is the best play?",
+   "options": [
+    "Look up and make a safe pass up the boards",
+    "Pass across the middle in front of your own net",
+    "Skate slowly behind your net",
+    "Shoot it at your own goalie"
+   ],
+   "answer": 0,
+   "why": "A cross-ice pass in front of your net can be stolen and turn into a goal against.",
+   "diagram": null
+  },
+  {
+   "id": "Q011",
+   "category": "Defense",
+   "text": "X2 is standing in front of your net while the puck is at the point. What should D2 do?",
+   "options": [
+    "Chase the puck carrier at the point",
+    "Leave and go to the bench",
+    "Stand behind the net",
+    "Tie up X2’s stick and box him out"
+   ],
+   "answer": 3,
+   "why": "Stop him from tipping the shot or taking the rebound. Stick on stick, body between him and the puck.",
+   "diagram": {
+    "p": [
+     [
+      "D2",
+      46,
+      21,
+      "u"
+     ],
+     [
+      "D1",
+      26,
+      28,
+      "u"
+     ],
+     [
+      "F1",
+      24,
+      62,
+      "u"
+     ],
+     [
+      "F2",
+      60,
+      60,
+      "u"
+     ],
+     [
+      "F3",
+      42,
+      58,
+      "u"
+     ],
+     [
+      "X1",
+      24,
+      76,
+      "o"
+     ],
+     [
+      "X2",
+      41,
+      17,
+      "o"
+     ]
+    ],
+    "k": [
+     24,
+     76
+    ],
+    "g": "u",
+    "c": "X2 is screening your goalie."
+   }
+  },
+  {
+   "id": "Q012",
+   "category": "Defense",
+   "text": "Your team loses the puck in the offensive zone and the other team starts up the ice. What does your forward do?",
+   "options": [
+    "Stay up high waiting for a pass",
+    "Skate to the bench",
+    "Hustle back and cover the closest opponent",
+    "Argue with the ref"
+   ],
+   "answer": 2,
+   "why": "Backchecking helps your defense. The play changes the moment the puck changes teams.",
+   "diagram": null
+  },
+  {
+   "id": "Q013",
+   "category": "Defense",
+   "text": "You are D1, the only defender back against a 2-on-1. What is best?",
+   "options": [
+    "Chase the puck carrier and leave the other player open",
+    "Stay between them, stick in the passing lane, and make the puck carrier shoot",
+    "Skate to the corner",
+    "Go behind your net"
+   ],
+   "answer": 1,
+   "why": "You cannot cover both players, so take away the pass and let the goalie handle the shot.",
+   "diagram": {
+    "p": [
+     [
+      "D1",
+      42,
+      40,
+      "u"
+     ],
+     [
+      "X1",
+      32,
+      50,
+      "o"
+     ],
+     [
+      "X2",
+      54,
+      50,
+      "o"
+     ]
+    ],
+    "k": [
+     32,
+     50
+    ],
+    "g": "u",
+    "c": "X1 has the puck. You are D1."
+   }
+  },
+  {
+   "id": "Q014",
+   "category": "Faceoff",
+   "text": "Offensive-zone faceoff. F1 wins the draw straight back. Who is best set up to receive it?",
+   "options": [
+    "D1, lined up on the puck side",
+    "D2, on the far side",
+    "F2 along the boards",
+    "Nobody: it is a free puck"
+   ],
+   "answer": 0,
+   "why": "The strong-side defenseman should be ready for the draw back and shoot or pass.",
+   "diagram": {
+    "p": [
+     [
+      "F1",
+      22.5,
+      34,
+      "u"
+     ],
+     [
+      "X1",
+      22.5,
+      28,
+      "o"
+     ],
+     [
+      "F2",
+      5,
+      44,
+      "u"
+     ],
+     [
+      "F3",
+      40,
+      44,
+      "u"
+     ],
+     [
+      "D1",
+      28,
+      64,
+      "u"
+     ],
+     [
+      "D2",
+      58,
+      64,
+      "u"
+     ],
+     [
+      "X2",
+      10,
+      46,
+      "o"
+     ],
+     [
+      "X3",
+      38,
+      46,
+      "o"
+     ]
+    ],
+    "k": [
+     22.5,
+     31
+    ],
+    "g": "o",
+    "c": "Faceoff in the left circle."
+   }
+  },
+  {
+   "id": "Q015",
+   "category": "Faceoff",
+   "text": "Who may be inside the faceoff circle when the puck is dropped?",
+   "options": [
+    "Everyone on both teams",
+    "Only defensemen",
+    "Only the wingers",
+    "Only the two centers"
+   ],
+   "answer": 3,
+   "why": "Everyone else stays outside the circle until the puck is dropped.",
+   "diagram": null
+  },
+  {
+   "id": "Q016",
+   "category": "Faceoff",
+   "text": "Your team loses a faceoff in your own zone. What is everyone’s first job?",
+   "options": [
+    "All chase the puck",
+    "Skate to the bench",
+    "Cover your man and get between the puck and your net",
+    "Celebrate"
+   ],
+   "answer": 2,
+   "why": "Do not all chase the puck. Cover your player first, then help win it back.",
+   "diagram": null
+  },
+  {
+   "id": "Q017",
+   "category": "Hockey IQ",
+   "text": "A teammate shoots the puck from behind center ice all the way past the opponents’ goal line and nobody touches it. What is the call?",
+   "options": [
+    "Offside",
+    "Icing",
+    "Too many men",
+    "High sticking"
+   ],
+   "answer": 1,
+   "why": "The puck crossed both the center red line and the goal line untouched, so it is icing and the faceoff comes back to your zone.",
+   "diagram": null
+  },
+  {
+   "id": "Q018",
+   "category": "Hockey IQ",
+   "text": "You are on the bench waiting for a line change. When is it safe to go on?",
+   "options": [
+    "When your teammate is close to the bench and about to come off",
+    "Right away, even if he is far away",
+    "When he is in the corner with the puck",
+    "Never"
+   ],
+   "answer": 0,
+   "why": "Too many men on the ice is a penalty. Wait until your teammate is close and the play is not near you.",
+   "diagram": null
+  },
+  {
+   "id": "Q019",
+   "category": "Hockey IQ",
+   "text": "Your team is ahead by one goal with one minute left. What is the best play?",
+   "options": [
+    "Try a fancy move in front of your own net",
+    "Stop skating to save energy",
+    "Shoot at your own goalie",
+    "Play smart: get the puck out and avoid risky passes"
+   ],
+   "answer": 3,
+   "why": "Protect the lead with safe, simple plays. Clear the puck and keep moving.",
+   "diagram": null
+  },
+  {
+   "id": "Q020",
+   "category": "Hockey IQ",
+   "text": "You carry the puck up the ice with your head down while a defender closes in. What should you do?",
+   "options": [
+    "Close your eyes and shoot",
+    "Skate faster with your head down",
+    "Keep your head up and look for an open teammate",
+    "Stop and wait"
+   ],
+   "answer": 2,
+   "why": "Head up means you can see passing options and defenders before it is too late.",
+   "diagram": null
+  }
+ ]
+}

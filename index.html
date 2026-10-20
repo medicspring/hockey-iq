@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hockey IQ Quiz</title><link rel="stylesheet" href="style.css"></head><body><div class="wrap" id="app"><p class="sub">Loading quiz…</p></div>
+<script src="rink.js"></script>
+<script>
+const app=document.getElementById('app'),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const shuffle=a=>{a=a.slice();for(let n=a.length-1;n>0;n--){const m=Math.random()*(n+1)|0;[a[n],a[m]]=[a[m],a[n]]}return a};
+let quiz,sent=false;
+fetch('quiz.json',{cache:'no-store'}).then(r=>r.json()).then(q=>{quiz=q;document.title=q.title;render()}).catch(()=>app.innerHTML='<p class="err">Could not load the quiz. Ask your coach for a new link.</p>');
+function render(){
+ app.innerHTML=`<h1>${esc(quiz.title)}</h1><p class="sub">Type your name, answer every question, then press Submit.</p>
+ <div class="card"><label for="nm"><b>Your name</b></label><input type="text" id="nm" autocomplete="name" placeholder="First and last name"></div>
+ <div class="bar" id="prog"></div>
+ ${quiz.questions.map((q,i)=>`<div class="card" data-i="${i}"><span class="tag">${esc(q.category)}</span> <span class="sub">Question ${i+1} of ${quiz.questions.length}</span><div class="q">${esc(q.text)}</div>
+ ${q.diagram?rinkSvg(q.diagram)+`<p class="cap">${esc(q.diagram.c||'')}</p>`:''}
+ ${shuffle(q.options.map((o,k)=>[o,k])).map(([o,k])=>`<label class="opt"><input type="radio" name="q${i}" value="${k}"><span>${esc(o)}</span></label>`).join('')}</div>`).join('')}
+ <div id="msg"></div><button id="sub">Submit my answers</button>`;
+ app.addEventListener('change',prog);prog();document.getElementById('sub').onclick=submit}
+const answered=()=>quiz.questions.filter((_,i)=>document.querySelector(`input[name=q${i}]:checked`)).length;
+function prog(){document.getElementById('prog').textContent=`${answered()} of ${quiz.questions.length} answered`}
+async function submit(){const name=document.getElementById('nm').value.trim(),msg=document.getElementById('msg');
+ if(!name){msg.innerHTML='<p class="err">Please type your name first.</p>';document.getElementById('nm').focus();return}
+ const n=answered();if(n<quiz.questions.length){msg.innerHTML=`<p class="err">You have ${quiz.questions.length-n} unanswered question(s). Please answer them all.</p>`;return}
+ if(!quiz.endpoint){msg.innerHTML='<p class="err">This quiz is not connected to a spreadsheet yet. Tell your coach.</p>';return}
+ let score=0;const answers=quiz.questions.map((q,i)=>{const k=+document.querySelector(`input[name=q${i}]:checked`).value,ok=k==q.answer;if(ok)score++;return{id:q.id,question:q.text,chosen:q.options[k],correct:q.options[q.answer],isCorrect:ok}});
+ const btn=document.getElementById('sub');btn.disabled=true;btn.textContent='Sending…';
+ try{await fetch(quiz.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({quizId:quiz.id,quizTitle:quiz.title,name,submitted:new Date().toISOString(),score,total:answers.length,answers})});
+  app.innerHTML=`<div class="card"><h1>Thanks, ${esc(name)}!</h1><p>Your answers were sent to your coach.</p>${quiz.showScore?`<p class="q">You got ${score} out of ${answers.length}.</p>`:''}</div>`;window.scrollTo(0,0)}
+ catch(e){btn.disabled=false;btn.textContent='Submit my answers';msg.innerHTML='<p class="err">Could not send. Check your internet connection and try again.</p>'}}
+</script></body></html>

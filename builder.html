@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quiz Builder</title><link rel="stylesheet" href="style.css"><style>.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}.row>*{flex:0 0 auto}svg.rk{max-width:220px;margin:6px 0}.q{font-size:16px}.ans{color:var(--ok);font-weight:700}.pick{display:flex;gap:10px;align-items:flex-start}.pick input{width:20px;height:20px;margin-top:4px;accent-color:var(--acc)}</style></head><body><div class="wrap">
+<h1>Quiz Builder</h1><p class="sub">Tick the questions for this quiz, then download <b>quiz.json</b> and upload it to your GitHub repo. The player page updates automatically.</p>
+<div class="card"><label><b>Quiz title</b></label><input type="text" id="title" value="Peewee C Hockey IQ Quiz"><div class="row"><label><b>Google Apps Script URL</b></label></div><input type="text" id="ep" placeholder="https://script.google.com/macros/s/…/exec">
+<div class="row"><label><input type="checkbox" id="ss" checked> Show players their score after submitting</label></div></div>
+<div class="bar"><span id="count"></span><div class="row"><select id="cat" style="width:auto"></select><button class="alt" id="all">Select shown</button><button class="alt" id="none">Clear</button><button id="dl">Download quiz.json</button><button class="alt" id="cp">Copy JSON</button><button class="alt" id="cur">Load current quiz.json</button></div></div>
+<div id="list"></div></div>
+<script src="rink.js"></script><script>
+let bank,sel=new Set();const $=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+fetch('question-bank.json',{cache:'no-store'}).then(r=>r.json()).then(b=>{bank=b;const cats=[...new Set(b.questions.map(q=>q.category))];$('cat').innerHTML='<option value="">All categories</option>'+cats.map(c=>`<option>${esc(c)}</option>`).join('');cur();draw()});
+function draw(){const c=$('cat').value;$('list').innerHTML=bank.questions.filter(q=>!c||q.category==c).map(q=>`<div class="card"><label class="pick"><input type="checkbox" data-id="${q.id}" ${sel.has(q.id)?'checked':''}><span><span class="tag">${esc(q.category)}</span> <b>${q.id}</b><div class="q">${esc(q.text)}</div>${q.diagram?rinkSvg(q.diagram):''}<ol type="A">${q.options.map((o,k)=>`<li class="${k==q.answer?'ans':''}">${esc(o)}</li>`).join('')}</ol></span></label></div>`).join('');count()}
+const count=()=>$('count').textContent=sel.size+' question'+(sel.size==1?'':'s')+' selected';
+$('list').onchange=e=>{const id=e.target.dataset.id;if(!id)return;e.target.checked?sel.add(id):sel.delete(id);count()};
+$('cat').onchange=draw;
+$('all').onclick=()=>{document.querySelectorAll('#list input').forEach(i=>{i.checked=true;sel.add(i.dataset.id)});count()};
+$('none').onclick=()=>{sel.clear();draw()};
+async function cur(){try{const q=await (await fetch('quiz.json',{cache:'no-store'})).json();sel=new Set(q.questions.map(x=>x.id));$('title').value=q.title||$('title').value;$('ep').value=q.endpoint||'';$('ss').checked=q.showScore!==false;if(bank)draw()}catch(e){}}
+$('cur').onclick=cur;
+function make(){const ids=bank.questions.filter(q=>sel.has(q.id));if(!ids.length){alert('Select at least one question.');return null}const t=$('title').value.trim()||'Hockey IQ Quiz';
+ return JSON.stringify({id:t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),title:t,endpoint:$('ep').value.trim(),showScore:$('ss').checked,questions:ids},null,1)}
+$('dl').onclick=()=>{const j=make();if(!j)return;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([j],{type:'application/json'}));a.download='quiz.json';a.click()};
+$('cp').onclick=async()=>{const j=make();if(!j)return;try{await navigator.clipboard.writeText(j);$('count').textContent='Copied!'}catch(e){alert('Copy was blocked; use Download instead.')}};
+</script></body></html>
