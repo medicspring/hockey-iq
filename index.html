@@ -1,29 +1,19 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Hockey IQ Quiz</title><link rel="stylesheet" href="style.css"></head><body><div class="wrap" id="app"><p class="sub">Loading quiz…</p></div>
-<script src="rink.js"></script>
-<script>
-const app=document.getElementById('app'),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const shuffle=a=>{a=a.slice();for(let n=a.length-1;n>0;n--){const m=Math.random()*(n+1)|0;[a[n],a[m]]=[a[m],a[n]]}return a};
-let quiz,sent=false;
-fetch('quiz.json',{cache:'no-store'}).then(r=>r.json()).then(q=>{quiz=q;document.title=q.title;render()}).catch(()=>app.innerHTML='<p class="err">Could not load the quiz. Ask your coach for a new link.</p>');
-function render(){
- app.innerHTML=`<h1>${esc(quiz.title)}</h1><p class="sub">Type your name, answer every question, then press Submit.</p>
- <div class="card"><label for="nm"><b>Your name</b></label><input type="text" id="nm" autocomplete="name" placeholder="First and last name"></div>
- <div class="bar" id="prog"></div>
- ${quiz.questions.map((q,i)=>`<div class="card" data-i="${i}"><span class="tag">${esc(q.category)}</span> <span class="sub">Question ${i+1} of ${quiz.questions.length}</span><div class="q">${esc(q.text)}</div>
- ${q.diagram?rinkSvg(q.diagram)+`<p class="cap">${esc(q.diagram.c||'')}</p>`:''}
- ${shuffle(q.options.map((o,k)=>[o,k])).map(([o,k])=>`<label class="opt"><input type="radio" name="q${i}" value="${k}"><span>${esc(o)}</span></label>`).join('')}</div>`).join('')}
- <div id="msg"></div><button id="sub">Submit my answers</button>`;
- app.addEventListener('change',prog);prog();document.getElementById('sub').onclick=submit}
-const answered=()=>quiz.questions.filter((_,i)=>document.querySelector(`input[name=q${i}]:checked`)).length;
-function prog(){document.getElementById('prog').textContent=`${answered()} of ${quiz.questions.length} answered`}
-async function submit(){const name=document.getElementById('nm').value.trim(),msg=document.getElementById('msg');
- if(!name){msg.innerHTML='<p class="err">Please type your name first.</p>';document.getElementById('nm').focus();return}
- const n=answered();if(n<quiz.questions.length){msg.innerHTML=`<p class="err">You have ${quiz.questions.length-n} unanswered question(s). Please answer them all.</p>`;return}
- if(!quiz.endpoint){msg.innerHTML='<p class="err">This quiz is not connected to a spreadsheet yet. Tell your coach.</p>';return}
- let score=0;const answers=quiz.questions.map((q,i)=>{const k=+document.querySelector(`input[name=q${i}]:checked`).value,ok=k==q.answer;if(ok)score++;return{id:q.id,question:q.text,chosen:q.options[k],correct:q.options[q.answer],isCorrect:ok}});
- const btn=document.getElementById('sub');btn.disabled=true;btn.textContent='Sending…';
- try{await fetch(quiz.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({quizId:quiz.id,quizTitle:quiz.title,name,submitted:new Date().toISOString(),score,total:answers.length,answers})});
-  app.innerHTML=`<div class="card"><h1>Thanks, ${esc(name)}!</h1><p>Your answers were sent to your coach.</p>${quiz.showScore?`<p class="q">You got ${score} out of ${answers.length}.</p>`:''}</div>`;window.scrollTo(0,0)}
- catch(e){btn.disabled=false;btn.textContent='Submit my answers';msg.innerHTML='<p class="err">Could not send. Check your internet connection and try again.</p>'}}
-</script></body></html>
+<title>Hockey IQ Hub</title><link rel="stylesheet" href="style.css"></head><body>
+<header class="hero"><svg class="art" viewBox="0 0 340 170" role="img" aria-label="Hockey rink with players passing a puck" xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="4" width="332" height="162" rx="40" fill="#eef6f9" stroke="#0b141c" stroke-width="4"/>
+<line x1="170" y1="4" x2="170" y2="166" stroke="#c33" stroke-width="4"/><line x1="112" y1="4" x2="112" y2="166" stroke="#2f5fc4" stroke-width="4"/><line x1="228" y1="4" x2="228" y2="166" stroke="#2f5fc4" stroke-width="4"/>
+<circle cx="170" cy="85" r="26" fill="none" stroke="#2f5fc4" stroke-width="2"/><line x1="30" y1="14" x2="30" y2="156" stroke="#c33" stroke-width="1.5"/><line x1="310" y1="14" x2="310" y2="156" stroke="#c33" stroke-width="1.5"/>
+<circle cx="64" cy="52" r="22" fill="none" stroke="#c33" stroke-width="1.5"/><circle cx="64" cy="118" r="22" fill="none" stroke="#c33" stroke-width="1.5"/><circle cx="276" cy="52" r="22" fill="none" stroke="#c33" stroke-width="1.5"/><circle cx="276" cy="118" r="22" fill="none" stroke="#c33" stroke-width="1.5"/>
+<rect x="22" y="73" width="8" height="24" fill="#ddd" stroke="#c33"/><rect x="310" y="73" width="8" height="24" fill="#ddd" stroke="#c33"/>
+<path id="pass" d="M140 120 Q190 50 250 66" fill="none" stroke="#c33" stroke-width="2" stroke-dasharray="6 5"/>
+<g font-family="Arial,sans-serif" font-size="11" font-weight="700" text-anchor="middle"><circle cx="140" cy="120" r="11" fill="#f2a900" stroke="#fff" stroke-width="2"/><text x="140" y="124" fill="#14212c">F1</text>
+<circle cx="250" cy="66" r="11" fill="#f2a900" stroke="#fff" stroke-width="2"/><text x="250" y="70" fill="#14212c">F2</text>
+<circle cx="205" cy="38" r="11" fill="#f2a900" stroke="#fff" stroke-width="2"/><text x="205" y="42" fill="#14212c">D1</text>
+<circle cx="200" cy="108" r="11" fill="#8e2f4f" stroke="#fff" stroke-width="2"/><text x="200" y="112" fill="#fff">X1</text></g>
+<ellipse rx="5" ry="3.2" fill="#111" stroke="#fff" stroke-width="1"><animateMotion dur="2.6s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;.8;1" calcMode="linear"><mpath href="#pass"/></animateMotion></ellipse></svg>
+<h1>Hockey IQ Hub</h1><p>Think the game. Learn the game. Smart players make smart plays.</p></header>
+<main class="choices">
+<a class="big" href="quiz.html"><svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="24" cy="30" rx="18" ry="8" fill="#111"/><ellipse cx="24" cy="24" rx="18" ry="8" fill="#2b2b2b" stroke="#555"/></svg><b>Take the Hockey IQ Quiz</b><span>Pick the smartest play in real game situations. Type your name, answer every question, and send it to your coach.</span><i>Take the quiz now</i></a>
+<a class="big" href="admin.html"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 6l6 0 14 30 10 0 0 6-16 0z" fill="#8a5a2b"/><path d="M6 40q10-6 22 0" fill="none" stroke="#c8312f" stroke-width="4" stroke-linecap="round"/></svg><b>Coach Admin Portal</b><span>Have a skill you want to teach or a drill idea? Tell us about it and we will turn it into new practice drills and quiz questions.</span><i>Open the portal</i></a>
+</main><footer>Peewee C Hockey IQ &middot; Minnesota</footer></body></html>
