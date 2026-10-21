@@ -1,7 +1,7 @@
 {
- "id": "peewee-c-hockey-iq",
+ "id": "peewee-c-hockey-iq-quiz",
  "title": "Peewee C Hockey IQ Quiz",
- "endpoint": "",
+ "endpoint": "https://script.google.com/macros/s/AKfycbzPyKdD6X5YH1X3nWuvnlT9JVx9q7iAE1OvNbc72s5u3CduTjycC7jqTR7xmMI_WE2V/exec",
  "showScore": true,
  "questions": [
   {
