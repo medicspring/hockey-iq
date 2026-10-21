@@ -12,3 +12,17 @@ button{font:700 16px system-ui,Arial,sans-serif;background:var(--ink);color:var(
 button.alt{background:var(--btn);color:var(--ink);border:2px solid var(--line)}.msg{padding:10px 12px;border-radius:8px;background:var(--btn);margin:10px 0}.err{color:#a82424;font-weight:600}
 button:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 .bar{position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:2;font-weight:600}
+/* ---- landing + admin ---- */
+a{color:var(--acc)}
+.hero{background:linear-gradient(160deg,#14212c,#1d3347);color:#fff;text-align:center;padding:28px 14px 22px}
+.hero h1{font-size:clamp(30px,7vw,46px);margin:8px 0 4px;letter-spacing:.01em}.hero p{margin:0 auto;max-width:520px;color:#c8d6e0}
+.hero svg.art{width:100%;max-width:520px;display:block;margin:14px auto 0}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;max-width:820px;margin:18px auto;padding:0 14px}
+.big{display:flex;flex-direction:column;gap:8px;align-items:flex-start;text-decoration:none;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:12px;padding:18px}
+.big:hover,.big:focus-visible{border-color:var(--acc)}.big b{font-size:22px}.big span{color:var(--mut)}.big i{font-style:normal;font-weight:700;color:#fff;background:var(--acc);border-radius:8px;padding:8px 16px;margin-top:4px}
+.big svg{width:44px;height:44px}
+textarea{font:inherit;color:var(--ink);background:var(--btn);border:2px solid var(--line);border-radius:8px;padding:10px 12px;width:100%;min-height:130px;resize:vertical}
+.fld{margin:14px 0}.fld>label{display:block;font-weight:700;margin-bottom:4px}.hint{color:var(--mut);font-size:14px;margin:0 0 6px}
+.hp{position:absolute;left:-9999px}
+foot,footer{display:block;text-align:center;color:var(--mut);font-size:13px;padding:16px}
+@media (prefers-reduced-motion:reduce){.hero svg animateMotion{display:none}}

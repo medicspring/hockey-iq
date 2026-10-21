@@ -5,7 +5,9 @@ Players open your link, type their name, answer the questions and press Submit. 
 ## Files
 | File | What it does |
 |---|---|
-| `index.html` | The quiz players use. Reads `quiz.json`. |
+| `index.html` | Landing page with two buttons: the quiz and the Coach Admin Portal. |
+| `quiz.html` | The quiz players use. Reads `quiz.json`. |
+| `admin.html` | Coach portal: suggest a skill or drill idea. Saved to a `Suggestions` tab in your sheet. |
 | `quiz.json` | The quiz that is live right now (title, questions, sheet link). |
 | `question-bank.json` | Every question ever written (Q001, Q002, ...). |
 | `builder.html` | Pick questions from the bank and download a new `quiz.json`. |
@@ -29,3 +31,6 @@ Send new questions to Claude along with your current `question-bank.json`. It re
 - The quiz file contains the correct answers (needed for scoring), so a determined player could find them in the page source.
 - Anyone with your Web app URL can post to the sheet. Do not share the URL publicly beyond the repo.
 - If you change the Apps Script code, use **Deploy > Manage deployments > Edit > New version** so the same URL keeps working.
+
+## Updating the Google script (needed once for the Coach Portal)
+Paste the new `apps-script/Code.gs` over the old code, save, then **Deploy > Manage deployments > pencil icon > Version: New version > Deploy**. The URL stays the same.

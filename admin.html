@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coach Portal</title><link rel="stylesheet" href="style.css"></head><body><div class="wrap">
+<p class="sub"><a href="./">&larr; Home</a> &nbsp;&middot;&nbsp; <a href="builder.html">Quiz Builder</a></p>
+<div id="box" class="card"><h1>Welcome, coach! &#127954;</h1>
+<p>Tell us what you want your players to learn. We collect your ideas and use them to create new drills and quiz questions.</p>
+<div class="fld"><label for="skill">What skill are you trying to teach?</label><p class="hint">Examples: passing, gap control, breakouts, backchecking, faceoffs.</p><input type="text" id="skill" list="sk" maxlength="120" placeholder="Type a skill">
+<datalist id="sk"><option>Passing and receiving</option><option>Skating and edge work</option><option>Shooting</option><option>Puck protection</option><option>Breakouts</option><option>Forechecking</option><option>Backchecking</option><option>Defensive-zone coverage</option><option>Offensive-zone cycle</option><option>Faceoffs</option><option>Gap control</option><option>Hockey IQ and decision making</option></datalist></div>
+<div class="fld"><label for="desc">Describe your drill or situation</label><p class="hint">What do players do? Where do they line up? What should they learn or notice?</p><textarea id="desc" maxlength="3000" placeholder="Example: 3 forwards start in the corner. F1 passes to F2, then skates to open ice. We want players to move after they pass."></textarea></div>
+<div class="fld"><label for="lvl">Age level</label><select id="lvl"><option>Peewee</option><option>Mite</option><option>Squirt</option><option>Bantam</option><option>Other</option></select></div>
+<div class="fld"><label for="nm">Your name (optional)</label><input type="text" id="nm" autocomplete="name"></div>
+<div class="fld"><label for="em">Email (optional, if we may follow up)</label><input type="text" id="em" autocomplete="email" inputmode="email"></div>
+<input class="hp" id="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+<div id="msg" role="status"></div><button id="go">Send my idea</button></div></div>
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let endpoint='';fetch('quiz.json',{cache:'no-store'}).then(r=>r.json()).then(q=>endpoint=q.endpoint||'').catch(()=>{});
+$('go').onclick=async()=>{const m=$('msg'),skill=$('skill').value.trim(),desc=$('desc').value.trim();
+ if(!skill||!desc){m.innerHTML='<p class="err">Please fill in the skill and the description.</p>';return}
+ if($('website').value)return;
+ if(!endpoint){m.innerHTML='<p class="err">The portal is not connected to the spreadsheet yet. Tell the site owner.</p>';return}
+ $('go').disabled=true;$('go').textContent='Sending…';
+ try{await fetch(endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({type:'suggestion',submitted:new Date().toISOString(),skill,description:desc,level:$('lvl').value,name:$('nm').value.trim(),email:$('em').value.trim()})});
+  $('box').innerHTML=`<h1>Thank you${$('nm').value.trim()?', '+esc($('nm').value.trim()):''}!</h1><p>Your idea about <b>${esc(skill)}</b> was saved. We will use it to build new drills and quiz questions.</p><button onclick="location.reload()">Send another idea</button>`}
+ catch(e){$('go').disabled=false;$('go').textContent='Send my idea';m.innerHTML='<p class="err">Could not send. Check your connection and try again.</p>'}};
+</script></body></html>
